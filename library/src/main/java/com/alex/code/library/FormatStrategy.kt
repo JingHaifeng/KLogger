@@ -13,11 +13,16 @@ class PrettyFormatStrategy private constructor(val logStrategy: LogStrategy) : F
     private constructor(builder: Builder) : this(builder.strategy)
 
     override fun log(priority: Int, tag: String?, message: String?) {
+        logTopBorder(priority, tag)
         logStrategy.log(priority, tag, message)
     }
 
-    fun logTopBorder(priority: Int, tag: String) {
+    fun logTopBorder(priority: Int, tag: String?) {
+        logChunk(priority, tag, TOP_BORDER)
+    }
 
+    private fun logChunk(priority: Int, tag: String?, chunk: String?) {
+        logStrategy.log(priority, tag, chunk)
     }
 
     companion object {
